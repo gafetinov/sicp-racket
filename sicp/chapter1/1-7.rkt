@@ -36,14 +36,15 @@
     (< (abs (- prev current)) accuracy))
 
 (define (new-sqrt-iter guess x)
-    (if (new-good-enough? guess x)
-        guess
-        (new-sqrt-iter (improve guess x) x)))
+    (define next-guess (improve guess x))
+    (if (new-good-enough? guess next-guess)
+        next-guess
+        (new-sqrt-iter next-guess x)))
 
 (define (new-sqrt x)
     (new-sqrt-iter 1.0 x))
 
-(check-= (sqrt 4) 2 accuracy)
-(check-= (sqrt 2) 1.4142135623746899 accuracy)
-(check-= (sqrt 0.0003211) 0.017919263 accuracy)
-(check-= (sqrt 1111111111111111) 33333333.333333332 accuracy)
+(check-= (new-sqrt 4) 2 accuracy)
+(check-= (new-sqrt 2) 1.4142135623746899 accuracy)
+(check-= (new-sqrt 0.0003211) 0.017919263 accuracy)
+(check-= (new-sqrt 1111111111111111) 33333333.333333332 accuracy)

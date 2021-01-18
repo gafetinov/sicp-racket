@@ -11,14 +11,16 @@
     (< (abs (- prev current)) accuracy))
 
 (define (sqrt3-iter guess x)
-    (if (good-enough? guess x)
-        guess
-        (sqrt3-iter (get-approximation guess x) x)))
+    (define next-guess (get-approximation guess x))
+    (if (good-enough? guess next-guess)
+        next-guess
+        (sqrt3-iter next-guess x)))
 
 (define (sqrt3 x)
     (sqrt3-iter 1.0 x))
 
-(check-= (sqrt3 9) 3 accuracy)
-(check-= (sqrt3 2) 1.4142135623746899 accuracy)
-(check-= (sqrt3 0.0003211) 0.017919263 accuracy)
-(check-= (sqrt3 1111111111111111) 33333333.333333332 accuracy)
+
+(check-= (sqrt3 1) 1 accuracy)
+(check-= (sqrt3 8) 2 accuracy)
+(check-= (sqrt3 0.0003211) 0.068477322 accuracy)
+(check-= (sqrt3 1111111111111111) 103574.416865129 accuracy)
